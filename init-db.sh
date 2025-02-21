@@ -6,7 +6,6 @@ sudo service postgresql start
 
 # Define database and schema names
 DB_NAME="db"
-SCHEMA_NAME="my_schema"
 USER="gitpod"
 
 # Create database
@@ -16,5 +15,6 @@ psql -U $USER -c "CREATE DATABASE $DB_NAME;"
 
 # Create tables
 psql -U $USER -d $DB_NAME -c "CREATE TABLE IF NOT EXISTS users (_id char(36) primary key, username varchar(100));"
+psql -U $USER -d $DB_NAME -c "CREATE TABLE IF NOT EXISTS exercises (description varchar(100), duration int, date date, userId char(36) references users(_id));"
 
 echo "PostgreSQL initialization complete!"
