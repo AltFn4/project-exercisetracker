@@ -1,10 +1,23 @@
-image: gitpod/workspace-node-lts
+image: gitpod/workspace-postgres
 
 ports:
-  - port: 3000
+  - name: frontend
+    port: 3000
     onOpen: open-preview
+  
+  - name: backend
+    port: 3001
+    onOpen: ignore
     visibility: public
 
+  - name: database
+    port: 5432
+    onOpen: ignore
+
 tasks:
-  - init: npm install
-    command: npm run start
+  - init: |
+      npm install
+      chmod +x ./init-db.sh
+      ./init-db.sh
+    command: |
+      npm run start
